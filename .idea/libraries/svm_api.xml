@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="svm-api">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/bin/graalvm/lib/svm/svm-api.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

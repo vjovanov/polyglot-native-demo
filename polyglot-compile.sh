@@ -1,5 +1,9 @@
 #/bin/bash -x
 
+[ -z ${SCALA_HOME+x} ] && echo "SCALA_HOME must be set to the scala distribution root folder" 
+[ -z ${KOTLIN_HOME+x} ] && echo "KOTLIN_HOME must be set to kotlin distribution root folder" 
+[ -z ${GRAALVM_HOME+x} ] && echo "GRAALVM_HOME must be set to a graalvm distribution root folder" 
+
 ROOT=`pwd`
 SCALA_CP=$SCALA_HOME/lib/scala-library.jar
 KOTLIN_CP=$KOTLIN_HOME/lib/kotlin-stdlib.jar
