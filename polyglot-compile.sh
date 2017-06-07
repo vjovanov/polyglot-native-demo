@@ -1,9 +1,9 @@
-#! /bin/bash -x
+#! /bin/bash 
 
 ROOT=`pwd`
-[ -z ${SCALA_HOME+x} ] && echo "SCALA_HOME must be set to the scala distribution root folder" 
-[ -z ${KOTLIN_HOME+x} ] && echo "KOTLIN_HOME must be set to kotlin distribution root folder" 
-[ -z ${GRAALVM_HOME+x} ] && echo "GRAALVM_HOME must be set to a graalvm distribution root folder" 
+[ -z ${SCALA_HOME+x} ] && echo "SCALA_HOME must be set to the scala distribution root folder" && exit 1 
+[ -z ${KOTLIN_HOME+x} ] && echo "KOTLIN_HOME must be set to kotlin distribution root folder" && exit 1
+[ -z ${GRAALVM_HOME+x} ] && echo "GRAALVM_HOME must be set to a graalvm distribution root folder" && exit 1
 
 SCALA_CP=$SCALA_HOME/lib/scala-library.jar
 KOTLIN_CP=$KOTLIN_HOME/lib/kotlin-stdlib.jar
@@ -31,4 +31,3 @@ $GRAALVM_HOME/bin/aot-image -cp $LIB_CP:$SCALA_CP:$ROOT/target:$KOTLIN_CP -H:Nam
 
 echo "Building the native project..."
 gcc -lsentiments -L./target/ -iquote./target c/main.c -o sentimentsC
-
