@@ -1,2 +1,2 @@
 #!/bin/sh -x 
-gcc -lsentiments -L./ main.c -o sentiments
+gcc -lsentiments -L./target/ c/main.c -o sentimentsC

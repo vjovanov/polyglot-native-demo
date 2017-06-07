@@ -6,3 +6,4 @@ To compile the demo make sure you have Scala, Kotlin, and GraalVM installed and 
 ```
 ./polyglot-compile.sh
 ```
+
