@@ -31,9 +31,11 @@ public final class CInterface {
     public static double correlateTweetsWithMarket(String pricesString, String tweetsString) {
         // parse tweets
         List<Pair<Long, String>> tweets = Arrays.stream(tweetsString.split("\n"))
-                .map(TweetParserKt::parseTweet).collect(Collectors.toList());
+                .map(TweetParserKt::parseTweet)
+                .collect(Collectors.toList());
         Pair<Long, Double>[] prices = PriceParserKt.parsePrices(pricesString);
 
+        // parse tuples
         List<Tuple2<Long, Double>> priceTuples =
                 Arrays.stream(prices).map(v -> new Tuple2<>(v.component1(), v.component2())).collect(Collectors.toList());
 
@@ -43,7 +45,10 @@ public final class CInterface {
                 .collect(Collectors.toList());
 
         // correlated tweets with sentiments
-        return Sentiments.correlateTweetsWithPrices(priceTuples.toArray(new Tuple2[priceTuples.size()]), sentiments.toArray(new Tuple2[sentiments.size()]));
+        return Sentiments.correlateTweetsWithPrices(
+                priceTuples.toArray(new Tuple2[priceTuples.size()]),
+                sentiments.toArray(new Tuple2[sentiments.size()])
+        );
     }
 
 }
