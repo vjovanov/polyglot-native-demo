@@ -30,8 +30,8 @@ char* read_file(const char * file) {
 }
 
 int main(int argc, char** argv) {
-  char* tweets = read_file("/Users/vjovanov/presentations/2017-oracle-code-moscow/polyglot-native/demo5-sentiment-analysis/data/ether-tweets");
-  char* prices = read_file("/Users/vjovanov/presentations/2017-oracle-code-moscow/polyglot-native/demo5-sentiment-analysis/data/eth-price.csv");
+  char* tweets = read_file("data/ether-tweets");
+  char* prices = read_file("data/eth-price.csv");
   printf("Correlation %f\n", correlate_tweets_with_market(prices, tweets)); 
   return 0;
 }

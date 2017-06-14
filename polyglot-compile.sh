@@ -15,13 +15,13 @@ mkdir target
 set -e
 
 echo "Compiling Scala..."
-scalac -cp $SCALA_CP ./scala/src/sentiments/Correlation.scala -d ./target
+$SCALA_HOME/bin/scalac -cp $SCALA_CP ./scala/src/sentiments/Correlation.scala -d ./target
 
 echo "Compiling Kotlin..."
-kotlinc -cp ./target:$LIB_CP ./kotlin/src/sentiments/TweetParser.kt ./kotlin/src/sentiments/PriceParser.kt -d ./target
+$KOTLIN_HOME/bin/kotlinc -cp ./target:$LIB_CP ./kotlin/src/sentiments/TweetParser.kt ./kotlin/src/sentiments/PriceParser.kt -d ./target
 
 echo "Compiling Java..."
-javac -cp ./target:$SCALA_CP:$KOTLIN_CP:$LIB_CP:$SVM_CP ./java/src/sentiments/* -d ./target
+$GRAALVM_HOME/bin/javac -cp ./target:$SCALA_CP:$KOTLIN_CP:$LIB_CP:$SVM_CP ./java/src/sentiments/* -d ./target
 
 echo "Building the executable..."
 $GRAALVM_HOME/bin/aot-image -cp $LIB_CP:$SCALA_CP:./target:$KOTLIN_CP -H:-MultiThreaded -H:Class=sentiments.CInterface -H:Name=sentimentsJava -H:+Debug -H:-AOTInline -H:SourceSearchPath=./java/src:./kotlin/src/:./scala/src/
@@ -30,4 +30,4 @@ echo "Building the shared library..."
 $GRAALVM_HOME/bin/aot-image -cp $LIB_CP:$SCALA_CP:$ROOT/target:$KOTLIN_CP -H:Name=libsentiments -H:SourceSearchPath=./java/src:./kotlin/src/:./scala/src/ -H:Path=./target -H:+Debug -H:-AOTInline -H:Kind=SHARED_LIBRARY
 
 echo "Building the native project..."
-gcc -lsentiments -L./target/ -iquote./target c/main.c -o sentimentsC
+gcc -g -L./target/ -iquote./target c/main.c -lsentiments -o sentimentsC
