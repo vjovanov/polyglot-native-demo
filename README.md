@@ -9,4 +9,4 @@ To compile the demo make sure you have Scala, Kotlin, and GraalVM installed and 
 
 This will build two native images:
 1) `sentimentsC` is the native program that combines C, Java, Scala, and Kotlin.
-2) `sentimentsJava` is a native program only from JVM languages used only for debugging with `gdb` on OS X.
+2) `sentimentsJava` is the native program that combines only the JVM languages. It is build only for debugging with `gdb` on OS X.
