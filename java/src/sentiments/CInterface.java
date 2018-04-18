@@ -7,9 +7,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.oracle.svm.api.systemjava.functions.ExternC;
-import com.oracle.svm.api.systemjava.types.CCharPointer;
-import com.oracle.svm.api.systemjava.types.TypeConversion;
+import org.graalvm.nativeimage.c.function.CEntryPoint;;
+import org.graalvm.nativeimage.c.type.CCharPointer;
+import org.graalvm.nativeimage.c.type.CTypeConversion;
+
+import org.graalvm.nativeimage.Isolate;
 
 import kotlin.Pair;
 import scala.Tuple2;
@@ -23,9 +25,9 @@ public final class CInterface {
         System.out.println("Price correlation: " + correlation);
     }
 
-    @ExternC(name = "correlate_tweets_with_market")
-    public static double correlateTweetsWithMarket(CCharPointer prices, CCharPointer tweets) {
-        return correlateTweetsWithMarket(TypeConversion.toJavaString(prices), TypeConversion.toJavaString(tweets));
+    @CEntryPoint(name = "correlate_tweets_with_market")
+    public static double correlateTweetsWithMarket(Isolate isolate, CCharPointer prices, CCharPointer tweets) {
+        return correlateTweetsWithMarket(CTypeConversion.toJavaString(prices), CTypeConversion.toJavaString(tweets));
     }
 
     public static double correlateTweetsWithMarket(String pricesString, String tweetsString) {

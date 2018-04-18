@@ -30,8 +30,13 @@ char* read_file(const char * file) {
 }
 
 int main(int argc, char** argv) {
+  graal_create_isolate_params_t isolate_params = {};
+  graal_isolate_t* isolate;
+  if (graal_create_isolate(&isolate_params, &isolate)) {
+    return -1;
+  }
   char* tweets = read_file("data/ether-tweets");
   char* prices = read_file("data/eth-price.csv");
-  printf("Correlation %f\n", correlate_tweets_with_market(prices, tweets)); 
+  printf("Correlation %f\n", correlate_tweets_with_market(isolate, prices, tweets));
   return 0;
 }
